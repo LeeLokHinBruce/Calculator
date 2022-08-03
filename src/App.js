@@ -118,6 +118,7 @@ function App() {
           </table>
         </div>
       </div>
+      <div><h1 class>Teammate: Bruce, Ari, Double</h1></div>
     </div>
   );
 }

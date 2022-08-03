@@ -6,13 +6,19 @@
     transition: all 0.5s ease;
 }
 
+h1{
+font-family:'Times New Roman', Times, serif;
+}
+
 body {
     font-family: sans-serif;
+    background-color: #ffe1b1;
+    background: linear-gradient(0.25turn, #9eaf92, #fbffd5, #f5cd9f);
 }
 
 a {
     text-decoration: none;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 
@@ -29,46 +35,32 @@ a {
     width: auto;
     padding: 20px 35px;
     border-radius: 20px;
-    box-shadow: 0 0 30px #e6af26;
+    box-shadow: 20px 15px 15px #8b9c8b;
 }
-
-
-.theme-toggler::before {
-    content: '';
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background-color: #FFE8AF;
-    z-index: -1;
-}
-
-#display {
-    margin: 0 10px;
-    height: 150px;
-    width: auto;
-    max-width: 270px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    font-size: 30px;
-    margin-bottom: 20px;
-    overflow-x: scroll;
-  }
 
 #display::-webkit-scrollbar {
     display: block;
     height: 3px;
 }
-.display-screen{
-    background-color: #f8fafb;
-    border-radius: 27px;
+
+.display-screen {
+    height: 120px;
+    width: 100%;
+    margin: 5px 0;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    background-color: #e0e7ce;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: bold;
+    box-sizing: border-box
 }
+
 button {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
     border: 0;
     border-radius: 20px;
     margin: 5px;
@@ -82,62 +74,75 @@ button:hover {
 }
 
 .button0 {
-    height: 80px;
-    width: 160px;
+    height: 100px;
+    width: 210px;
     border: 0;
     border-radius: 20px;
     margin: 5px;
     font-size: 20px;
     cursor: pointer;
     transition: all 200ms ease;
-    background-color: #DBF7FB;
-}
-
-button#equal {
-    height: 80px;
-}
-
-.buttonClear{
     background-color: #FFF5DD;
+    
 }
-/* light theme */
+
+.button0:hover {
+    height: 80px;
+    width: 210px;
+    border: 0;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 200ms ease;
+    background-color: #FFF5DD;
+    color: rgb(255, 255, 255);
+    font-size: xx-large;
+    
+}
+
+/* button equal */
+button#equal {
+    height: 100px;
+}
+
+/* button AC */
+.buttonClear {
+    background-color: #e9c686;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+}
 
 .calculator {
     background-color: rgb(0, 0, 0);
 }
 
-.calculator #display {
-    color: #0a1e23;
+.calculator.dark {
+    background: linear-gradient(#789177, #ADC091, #dbe6c0);
 }
 
 
-  .calculator button.btn-equal {
-    background-color: #adf9e7;
-    color: #000;
-  }
-
-  /* dark theme */
-
-  .calculator.dark {
-    background-color: #FFE8AF;
-  }
-
-  .calculator.dark #display {
+/* button number */
+.calculator.dark button.btn-number {
+    background-color: #fff8d9;
     color: #000000;
-  }
+    font-size: large;
+}
 
-  .calculator.dark button.btn-number {
-    background-color: #DBF7FB;
-    color: #000000;
-  }
+.calculator.dark button.btn-number:hover {
+    background-color: #fff0ad;
+    color: rgb(255, 255, 255);
+    font-size: xx-large;
+}
 
-  .calculator.dark button.btn-operator {
-    background-color: #B3E2E9;
+/* button operator */
+.calculator.dark button.btn-operator {
+    background-color: #e9c686;
     color: #000000;
-  }
-  
-  .calculator.dark button.btn-equal {
-    background-color: #223323;
-    color: #ffffff;
-  }
-  
+}
+
+.calculator.dark button.btn-operator:hover {
+    background-color: #d8ac5a;
+    color: rgb(255, 255, 255);
+    font-size: xx-large;
+}
