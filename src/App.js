@@ -5,24 +5,82 @@ import "./style.css";
 function App() {
   const [result, setResult] = useState("0");
   const [input, setInput] = useState("0");
+  const [oldInput, setOldInput] = useState("0");
 
   // handle the input value that show on the screen
   const clickHandler = (e) => {
     const btnType = e.target.className;
     if (btnType === "btn-operator") {
       console.log(btnType, e.target.value);
-      setInput(e.target.value);
+      operation(e.target.value);
+      // setInput(e.target.value);
     } else if (btnType === "btn-number" || btnType === "button0") {
       console.log(btnType, e.target.value);
       if (input === "0" || isNaN(Number(input))) {
         // if the screen value is 0 or non-number
         setInput(e.target.value);
+        // console.log(e.target.value)
       } else {
         setInput(input.concat(e.target.value)); // add number to the screen value
+        // console.log(input)
       }
     }
   };
 
+  const [addition, setAddition] = useState(false);
+  const [subtraction, setSubtraction] = useState(false);
+  const [multiplication, setMultiplication]= useState(false);
+  const [division, setDivision] = useState(false);
+  function operation(symbol) {
+
+
+
+    if (symbol == "+") {
+      setResult(Number(input+result));
+      setAddition(true);
+      setInput("");
+    } else if (symbol == "-") {
+      setResult(Number(result-input));
+      setInput("");
+    } else if (symbol == "*" && multiplication) {
+      // console.log(Number(input) +"   "+ Number(result))
+      setResult(Number(input*result));
+      setInput("");
+    } else if (symbol == "/" && division) {
+      setResult(Number(input/result));
+      setInput("");
+    }
+    if (symbol == "=") {
+      if(addition){
+        setResult(Number(input) + Number(result));
+        setAddition(false);
+      }else if(subtraction){
+        setResult(Number(result-input));
+        setSubtraction(false);
+      }else if(multiplication){
+        setResult(Number(result*input));
+        setMultiplication(false);
+      }else if(division){
+        setResult(Number(result/input));
+        setDivision(false);
+      }
+      // setOldInput(Number(result));
+      setInput("");
+    }
+    if(symbol == "-" && !subtraction){
+      setSubtraction(true);
+      setResult(Number(input));
+      // setInput("");
+    } else if(symbol == "*" && !multiplication){
+      setMultiplication(true);
+      setResult(Number(input));
+      setInput("");
+    } else if(symbol == "/" && !division){
+      setDivision(true);
+      setResult(Number(input));
+      setInput("");
+    } 
+  }
   // let ref = useRef(null);
 
   // useEffect(() => {
@@ -44,6 +102,8 @@ function App() {
   const resetClickHandler = () => {
     setInput("0");
     setResult("0");
+    setOldInput("0");
+    setSubtraction(false);
   };
 
   return (
@@ -51,7 +111,7 @@ function App() {
       {/* Screen */}
       <div className="calculator dark">
         <div className="display-screen">
-          <h1 id="display">{input}</h1>
+          <h1 id="display">{input || result}</h1>
         </div>
         {/* Buttons Box */}
         <div className="buttons">
@@ -139,7 +199,7 @@ function App() {
                   <button
                     // ref={ref}
                     className="btn-operator"
-                    id="minus"
+                    id="minus2"
                     value="-"
                     onClick={clickHandler}
                   >
@@ -278,7 +338,7 @@ function App() {
           </table>
         </div>
       </div>
-      <div><h1 class>Teammate: Bruce, Ari, Double</h1></div>
+      <div><h1>Teammate: Bruce, Ari, Double</h1></div>
     </div>
   );
 }
