@@ -38,11 +38,6 @@ a {
     box-shadow: 20px 15px 15px #8b9c8b;
 }
 
-#display::-webkit-scrollbar {
-    display: block;
-    height: 3px;
-}
-
 .display-screen {
     height: 120px;
     width: 100%;
