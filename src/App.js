@@ -111,7 +111,7 @@ function App() {
       {/* Screen */}
       <div className="calculator dark">
         <div className="display-screen">
-          <h1 id="display">{input || result}</h1>
+          <h3 id="display">{input || result}</h3>
         </div>
         {/* Buttons Box */}
         <div className="buttons">
@@ -338,7 +338,7 @@ function App() {
           </table>
         </div>
       </div>
-      <div><h1>Teammate: Bruce, Ari, Double</h1></div>
+      <footer>Teammate: Bruce, Ari, Double</footer>
     </div>
   );
 }
