@@ -6,8 +6,8 @@ import "./style.css";
 
 function App() {
   const [oldInput, setOldInput] = useState("");
-  const [result, setResult] = useState(0);
-  const [input, setInput] = useState(0);
+  const [result, setResult] = useState("0");
+  const [input, setInput] = useState("0");
   const [sign, setSign] = useState(""); // operation + - * /
   const [preSign, setPreSign] = useState(""); // store for check what operator is executed when clicked =
 
@@ -18,11 +18,11 @@ function App() {
     const value = e.target.value;
 
     if (btnType === "btn-operator") {
-      console.log(btnType, e.target.value);
+      // console.log(btnType, e.target.value);
       Operation(e.target.value);
       // setInput(e.target.value);
     } else if (btnType === "btn-number" || btnType === "button0") {
-      console.log(btnType, e.target.value);
+      // console.log(btnType, e.target.value);
       if (input === "0" || isNaN(Number(input))) {
         // if the screen value is 0 or non-number
         setInput(e.target.value);
@@ -61,15 +61,11 @@ function App() {
     }
   };
 
-
-
-
   const [addition, setAddition] = useState(false);
   const [subtraction, setSubtraction] = useState(false);
   const [multiplication, setMultiplication] = useState(false);
   const [division, setDivision] = useState(false);
   const [choose, setChoose] = useState("");
-
 
   function Operation(symbol) {
     if(symbol == "*" && oldInput != ""){
@@ -78,12 +74,45 @@ function App() {
       // setInput("");
       console.log(input)
     }
+    // if(symbol=="+" || symbol=="-" || symbol=="*" || symbol=="/"){
+    //   if (choose == symbol) {
+    //     console.log(symbol)
+    //     setChoose(symbol);
+    //   } else if (choose != symbol) {
+    //     console.log(symbol)
+    //     if (symbol == "+") {
+    //       setAddition(true);
+    //       setSubtraction(false);
+    //       setMultiplication(false);
+    //       setDivision(false);
+    //       // setResult(Number(input));
+    //       setInput("");
+    //     } else if (symbol == "-") {
+    //       setSubtraction(true);
+    //       setSubtraction(false);
+    //       setMultiplication(false);
+    //       setDivision(false);
+    //       // setResult(Number(input));
+    //       setInput("");
+    //     } else if (symbol == "*") {
+    //       setMultiplication(true);
+    //       setSubtraction(false);
+    //       setMultiplication(false);
+    //       setDivision(false);
+    //       // setResult(Number(input));
+    //       setInput("");
+    //     } else if (symbol == "/") {
+    //       setDivision(true);
+    //       setSubtraction(false);
+    //       setMultiplication(false);
+    //       setDivision(false);
+    //       // setResult(Number(input));
+    //       setInput("");
+    //     }
+    //     setChoose(symbol);
+    //   }
+    // }
 
-    if (choose == "") {
-      setChoose(symbol);
-    } else if (choose != symbol) {
-      setChoose(symbol);
-    }
     if (symbol == "+" && addition) {
       setResult(Number(result) + Number(input));
       setInput("");
@@ -101,18 +130,17 @@ function App() {
     if (symbol == "=") {
       if (addition) {
         setResult(Number(result) + Number(input));
-        setAddition(false);
+        // setAddition(false);
       } else if (subtraction) {
         setResult(Number(result) - Number(input));
-        setSubtraction(false);
+        // setSubtraction(false);
       } else if (multiplication) {
         setResult(Number(input) * Number(result));
-        setMultiplication(false);
-        console.log(result)
+        // setMultiplication(false);
         setOldInput(result);
       } else if (division) {
         setResult(Number(result) / Number(input));
-        setDivision(false);
+        // setDivision(false);
       }
       setInput("");
     }
@@ -219,8 +247,8 @@ function App() {
         <div className="display-screen">
           <h3 id="display">{input || result}</h3>
           {/* <h1 id="display">{sign ? result : input}</h1> */}
-          {console.log("input", input)}
-          {console.log("result", result)}
+          {/* {console.log("input", input)}
+          {console.log("result", result)} */}
         </div>
         {/* Buttons Box */}
         <div className="buttons">
