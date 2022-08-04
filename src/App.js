@@ -1,18 +1,19 @@
 // import "./App.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useInsertionEffect, useRef, useState } from "react";
 import "./style.css";
+
 
 function App() {
   const [result, setResult] = useState("0");
   const [input, setInput] = useState("0");
-  const [oldInput, setOldInput] = useState("0");
+  const [oldInput, setOldInput] = useState("");
 
   // handle the input value that show on the screen
   const clickHandler = (e) => {
     const btnType = e.target.className;
     if (btnType === "btn-operator") {
       console.log(btnType, e.target.value);
-      operation(e.target.value);
+      Operation(e.target.value);
       // setInput(e.target.value);
     } else if (btnType === "btn-number" || btnType === "button0") {
       console.log(btnType, e.target.value);
@@ -27,59 +28,81 @@ function App() {
     }
   };
 
+
+
+
   const [addition, setAddition] = useState(false);
   const [subtraction, setSubtraction] = useState(false);
-  const [multiplication, setMultiplication]= useState(false);
+  const [multiplication, setMultiplication] = useState(false);
   const [division, setDivision] = useState(false);
-  function operation(symbol) {
+  const [choose, setChoose] = useState("");
 
 
+  function Operation(symbol) {
+    if(symbol == "*" && oldInput != ""){
+      setInput(Number(result));
+      setMultiplication(true);
+      // setInput("");
+      console.log(input)
+    }
 
-    if (symbol == "+") {
-      setResult(Number(input+result));
-      setAddition(true);
+    if (choose == "") {
+      setChoose(symbol);
+    } else if (choose != symbol) {
+      setChoose(symbol);
+    }
+    if (symbol == "+" && addition) {
+      setResult(Number(result) + Number(input));
       setInput("");
-    } else if (symbol == "-") {
-      setResult(Number(result-input));
+    } else if (symbol == "-" && subtraction) {
+      setResult(Number(result) - Number(input));
       setInput("");
     } else if (symbol == "*" && multiplication) {
-      // console.log(Number(input) +"   "+ Number(result))
-      setResult(Number(input*result));
+      setResult(Number(input) * Number(result));
       setInput("");
     } else if (symbol == "/" && division) {
-      setResult(Number(input/result));
+      setResult(Number(input) / Number(result));
       setInput("");
     }
+
     if (symbol == "=") {
-      if(addition){
-        setResult(Number(input) + Number(result));
+      if (addition) {
+        setResult(Number(result) + Number(input));
         setAddition(false);
-      }else if(subtraction){
-        setResult(Number(result-input));
+      } else if (subtraction) {
+        setResult(Number(result) - Number(input));
         setSubtraction(false);
-      }else if(multiplication){
-        setResult(Number(result*input));
+      } else if (multiplication) {
+        setResult(Number(input) * Number(result));
         setMultiplication(false);
-      }else if(division){
-        setResult(Number(result/input));
+        console.log(result)
+        setOldInput(result);
+      } else if (division) {
+        setResult(Number(result) / Number(input));
         setDivision(false);
       }
-      // setOldInput(Number(result));
       setInput("");
     }
-    if(symbol == "-" && !subtraction){
+
+    if (symbol == "+" && !addition) {
+      setAddition(true);
+      setResult(Number(input));
+      setInput("");
+    } else if (symbol == "-" && !subtraction) {
       setSubtraction(true);
       setResult(Number(input));
-      // setInput("");
-    } else if(symbol == "*" && !multiplication){
+      setInput("");
+    } else if (symbol == "*" && !multiplication) {
       setMultiplication(true);
       setResult(Number(input));
       setInput("");
-    } else if(symbol == "/" && !division){
+    } else if (symbol == "/" && !division) {
       setDivision(true);
       setResult(Number(input));
       setInput("");
-    } 
+    }
+
+
   }
   // let ref = useRef(null);
 
@@ -103,7 +126,10 @@ function App() {
     setInput("0");
     setResult("0");
     setOldInput("0");
+    setAddition(false);
     setSubtraction(false);
+    setMultiplication(false);
+    setDivision(false);
   };
 
   return (
