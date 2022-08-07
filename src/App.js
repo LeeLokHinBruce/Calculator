@@ -19,11 +19,7 @@ function App() {
 
   // handle the input value that show on the screen
   const inputNum = (e) => {
-    if (
-      (curState.includes(".") && e.target.value === ".") ||
-      preState.includes(".")
-    )
-      return;
+    if (curState.includes(".") && e.target.value === ".") return;
 
     // calculate new formular
     if (total) {
@@ -33,7 +29,9 @@ function App() {
     if (curState !== "0") {
       setCurState((prev) => prev + e.target.value);
     } else {
-      setCurState(e.target.value);
+      e.target.value === "."
+        ? setCurState((prev) => prev + e.target.value) // 0.
+        : setCurState(e.target.value);
     }
   };
 
