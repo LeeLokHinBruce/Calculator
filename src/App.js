@@ -1,117 +1,120 @@
-// import "./App.css";
-import { useState } from "react";
 import "./style.css";
+import { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
 
 function App() {
-  const [result, setResult] = useState(0);
-  const [input, setInput] = useState(0);
-  const [sign, setSign] = useState(""); // operation + - * /
-  const [preSign, setPreSign] = useState(""); // store for check what operator is executed when clicked =
+  const [preState, setPreState] = useState(""); // previous value
+  const [curState, setCurState] = useState(""); // current value
+  const [input, setInput] = useState("0"); // input value
+  const [operator, setOperator] = useState(null); // operation + - * /
+  const [total, setTotal] = useState(false); // the boolean of total value, the total will set to True after clicked =
+
+  useEffect(() => {
+    setInput(curState);
+  }, [curState]);
+
+  useEffect(() => {
+    setInput("0");
+  }, []);
 
   // handle the input value that show on the screen
-  const clickHandler = (e) => {
-    // e.preventDefault();
-    const btnType = e.target.className;
-    const value = e.target.value;
+  const inputNum = (e) => {
+    if (
+      (curState.includes(".") && e.target.value === ".") ||
+      preState.includes(".")
+    )
+      return;
 
-    if (btnType === "btn-operator") {
-      // operation validation
-      if (value === ".") {
-        commaClickHandler(e);
-      } else if (
-        value === "+" ||
-        value === "-" ||
-        value === "*" ||
-        value === "/"
-      ) {
-        signClickHandler(e);
-      } else if (value === "=") {
-        euqalClickHanlder();
-      } else if (value === "+/-") {
-        invertClickHandler();
-      } else if (value === "%") {
-        percentClickHandler();
-      }
-    } else if (btnType === "btn-number" || btnType === "button0") {
-      // number button
-      if (input === 0 || sign) {
-        // if the screen value is 0 or non-number or sign == true
-        setInput(value);
-        setSign("");
-      } else {
-        setInput(input.concat(value)); // add number to the screen value
-      }
+    // calculate new formular
+    if (total) {
+      setPreState("");
+    }
+
+    if (curState !== "0") {
+      setCurState((prev) => prev + e.target.value);
+    } else {
+      setCurState(e.target.value);
     }
   };
 
-  // let ref = useRef(null);
-
-  // useEffect(() => {
-  //   const button = ref.current;
-
-  //   const handleClick = (btn) => {
-  //     if (btn.className === "btn-operator") {
-  //       console.log(`${btn.value} operator Click!`);
-  //     } else if (btn.className === "btn-number") {
-  //       console.log(`${btn.value} number Click!`);
-  //     }
-  //   };
-
-  //   button.addEventListener("click", handleClick(button));
-
-  //   return () => button.removeEventListener("click", handleClick(button));
-  // }, []);
-
-  const commaClickHandler = (e) => {
-    const value = e.target.value;
-
-    setInput(!input.toString().includes(".") ? input + value : input);
-    setSign("");
+  // set operator
+  const operatorClickHandler = (e) => {
+    setTotal(false);
+    setOperator(e.target.value);
+    if (curState === "") return; // require enter number before opertor
+    if (preState !== "") {
+      // won't execute with clicked first operator
+      euqalClickHanlder(e);
+      calculator();
+    } else {
+      setPreState(curState);
+      setCurState("");
+    }
   };
 
   // operator + - * /
-  const signClickHandler = (e) => {
-    const value = e.target.value;
-    const calcNum = parseFloat(input);
-
-    setSign(value);
-    setPreSign(value);
-    setResult((prev) => {
-      console.log(prev);
-      return value === "+"
-        ? prev + calcNum
-        : value === "-"
-        ? prev - calcNum
-        : value === "*"
-        ? prev * calcNum
-        : prev / calcNum;
-    });
+  const calculator = () => {
+    let calc;
+    switch (operator) {
+      case "+":
+        calc = String(parseFloat(preState) + parseFloat(curState));
+        break;
+      case "-":
+        calc = String(parseFloat(preState) - parseFloat(curState));
+        break;
+      case "*":
+        calc = String(parseFloat(preState) * parseFloat(curState));
+        break;
+      case "/":
+        calc = String(parseFloat(preState) / parseFloat(curState));
+        break;
+      default:
+        return;
+    }
+    setInput("");
+    setPreState(calc);
+    setCurState("");
   };
 
-  const euqalClickHanlder = () => {};
-
-  // invert to + or -
-  const invertClickHandler = () => {
-    setSign("");
-    if (input !== 0) {
-      setInput((prev) => prev * -1);
-      setResult((prev) => prev * -1);
+  // =
+  const euqalClickHanlder = (e) => {
+    if (e.target.value === "=") {
+      setTotal(true);
     }
   };
 
+  // invert to + or -
+  const invertClickHandler = () => {
+    if (curState === "0") return;
+
+    if (curState === "") {
+      preState.charAt(0) === "-"
+        ? setPreState(preState.substring(1))
+        : setPreState("-" + preState);
+    } else {
+      curState.charAt(0) === "-"
+        ? setCurState(curState.substring(1))
+        : setCurState("-" + curState);
+    }
+  };
+
+  // %
   const percentClickHandler = () => {
-    setSign("");
-    if (input !== 0) {
-      setInput((prev) => (prev /= Math.pow(100, 1)));
-      setResult((prev) => (prev /= Math.pow(100, 1)));
+    if (!preState && !curState) return;
+    if (curState) {
+      setCurState(String(parseFloat(curState) / 100));
+    } else {
+      setPreState(String(parseFloat(preState) / 100));
     }
   };
 
   // clear all values
   const resetClickHandler = () => {
-    setSign("");
-    setInput(0);
-    setResult(0);
+    setPreState("");
+    setCurState("0");
+    setInput("0");
+    setOperator(null);
+    setTotal(false);
   };
 
   return (
@@ -119,9 +122,21 @@ function App() {
       {/* Screen */}
       <div className="calculator dark">
         <div className="display-screen">
-          <h1 id="display">{sign ? result : input}</h1>
-          {console.log("input", input)}
-          {console.log("result", result)}
+          <h1 id="display">
+            {input !== "" || input === "0" ? (
+              <NumberFormat
+                value={input}
+                displayType={"text"}
+                thousandSeparator={true}
+              />
+            ) : (
+              <NumberFormat
+                value={preState}
+                displayType={"text"}
+                thousandSeparator={true}
+              />
+            )}
+          </h1>
         </div>
         {/* Buttons Box */}
         <div className="buttons">
@@ -139,33 +154,30 @@ function App() {
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="percent"
                     value="%"
-                    onClick={clickHandler}
+                    onClick={percentClickHandler}
                   >
                     %
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="minus"
                     value="+/-"
-                    onClick={clickHandler}
+                    onClick={invertClickHandler}
                   >
                     +/-
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="plus"
                     value="+"
-                    onClick={clickHandler}
+                    onClick={operatorClickHandler}
                   >
                     +
                   </button>
@@ -174,44 +186,40 @@ function App() {
               <tr>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="7"
                     value={7}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     7
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="8"
                     value={8}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     8
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="9"
                     value={9}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     9
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="minus"
                     value="-"
-                    onClick={clickHandler}
+                    onClick={operatorClickHandler}
                   >
                     -
                   </button>
@@ -220,44 +228,40 @@ function App() {
               <tr>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="4"
                     value={4}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     4
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="5"
                     value={5}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     5
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="6"
                     value={6}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     6
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="mul"
                     value="*"
-                    onClick={clickHandler}
+                    onClick={operatorClickHandler}
                   >
                     x
                   </button>
@@ -266,44 +270,40 @@ function App() {
               <tr>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="1"
                     value={1}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     1
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="2"
                     value={2}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     2
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-number"
                     id="3"
                     value={3}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     3
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="divided"
                     value="/"
-                    onClick={clickHandler}
+                    onClick={operatorClickHandler}
                   >
                     ÷
                   </button>
@@ -312,33 +312,30 @@ function App() {
               <tr>
                 <td colSpan="2">
                   <button
-                    // ref={ref}
                     className="button0"
                     id="0"
                     value={0}
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     0
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="doc"
                     value="."
-                    onClick={clickHandler}
+                    onClick={inputNum}
                   >
                     .
                   </button>
                 </td>
                 <td>
                   <button
-                    // ref={ref}
                     className="btn-operator"
                     id="equal"
                     value="="
-                    onClick={clickHandler}
+                    onClick={operatorClickHandler}
                   >
                     =
                   </button>
@@ -348,7 +345,9 @@ function App() {
           </table>
         </div>
       </div>
-      <div><h1 class>Teammate: Bruce, Ari, Double</h1></div>
+      <div>
+        <h1>Teammate: Bruce, Ari, Double</h1>
+      </div>
     </div>
   );
 }
