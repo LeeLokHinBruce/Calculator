@@ -6,8 +6,8 @@
     transition: all 0.5s ease;
 }
 
-h1{
-font-family:'Times New Roman', Times, serif;
+h1 {
+    font-family: 'Times New Roman', Times, serif;
 }
 
 h3{
@@ -43,19 +43,31 @@ a {
 }
 
 .display-screen {
+    height: 120px;
+    width: 450px;
+    margin: 5px 0;
+/*
     height: 130px;
     width: 100%;
     margin: 15px 0;
+*/
     margin-bottom: 20px;
     padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     font-size: 60px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    background-color: #f8fafb;
+    border-radius: 27px;
+
+/*
     background-color: #e8f7ff;
     border-radius: 40px;
+*/
     font-weight: bold;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 #display::-webkit-scrollbar {
@@ -87,8 +99,11 @@ button:hover {
     font-size: 30px;
     cursor: pointer;
     transition: all 200ms ease;
+    background-color: #FFF5DD;
+
+/*
     background-color: #fae5fa;
-    
+*/
 }
 
 .button0:hover {
@@ -100,10 +115,13 @@ button:hover {
     font-size: 20px;
     cursor: pointer;
     transition: all 200ms ease;
+    background-color: #fff0ad;
+/*
     background-color: #ffdaff;
     color: rgb(255, 255, 255);
+*/
     font-size: xx-large;
-    
+
 }
 
 /* button equal */
@@ -113,23 +131,34 @@ button#equal {
 
 /* button AC */
 .buttonClear {
-    background-color: #d3d3ff;
-    color: rgb(255, 255, 255);
+    background-color: #dcd152;
     font-size: x-large;
 }
 
+.buttonClear:hover {
+    background-color: #c0b434;
+    color: white;
+}
+
+.calculator {
+    background-color: rgb(0, 0, 0);
+/*
+    background-color: #d3d3ff;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+*/
+}
+
+/*
 .calculator button.btn-equal {
     background-color: #fae5fa;
     color: #000;
 }
+*/
 
 /* dark theme */
 .calculator.dark {
     background: linear-gradient(#76cdff, #57cdff,#ffffe4);
-}
-
-.calculator.dark #display {
-    color: #000000;
 }
 
 .calculator.dark button.btn-equal {
@@ -139,16 +168,26 @@ button#equal {
 
 /* button number */
 .calculator.dark button.btn-number {
+    background-color: #FFF5DD;
+    font-size: large;
+}
+
+.calculator.dark button.btn-number:hover {
+    background-color: #fff0ad;
+/*
     background-color: #fae5fa;
     color: #000000;
     font-size: 30px;
+*/
 }
 
+/*
 .calculator.dark button.btn-number:hover {
     background-color: #ffdaff;
     color: rgb(255, 255, 255);
     font-size: xx-large;
 }
+*/
 
 /* button operator */
 .calculator.dark button.btn-operator {
