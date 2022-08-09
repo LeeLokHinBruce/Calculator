@@ -111,8 +111,7 @@ button:hover {
     font-size: 20px;
     cursor: pointer;
     transition: all 200ms ease;
-    background-color: #FFF5DD;
-    color: rgb(255, 255, 255);
+    background-color: #fff0ad;
     font-size: xx-large;
 
 }
@@ -124,27 +123,22 @@ button#equal {
 
 /* button AC */
 .buttonClear {
-    background-color: #e9c686;
-    color: rgb(255, 255, 255);
+    background-color: #dcd152;
     font-size: x-large;
+}
+
+.buttonClear:hover {
+    background-color: #c0b434;
+    color: white;
 }
 
 .calculator {
     background-color: rgb(0, 0, 0);
 }
 
-.calculator button.btn-equal {
-    background-color: #adf9e7;
-    color: #000;
-}
-
 /* dark theme */
 .calculator.dark {
     background: linear-gradient(#789177, #ADC091, #dbe6c0);
-}
-
-.calculator.dark #display {
-    color: #000000;
 }
 
 .calculator.dark button.btn-equal {
@@ -154,14 +148,12 @@ button#equal {
 
 /* button number */
 .calculator.dark button.btn-number {
-    background-color: #fff8d9;
-    color: #000000;
+    background-color: #FFF5DD;
     font-size: large;
 }
 
 .calculator.dark button.btn-number:hover {
     background-color: #fff0ad;
-    color: rgb(255, 255, 255);
     font-size: xx-large;
 }
 
