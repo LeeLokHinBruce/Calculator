@@ -10,10 +10,13 @@ h1 {
     font-family: 'Times New Roman', Times, serif;
 }
 
+h3{
+    font-weight: 200;
+}
 body {
     font-family: sans-serif;
-    background-color: #ffe1b1;
-    background: linear-gradient(0.25turn, #9eaf92, #fbffd5, #f5cd9f);
+    background:linear-gradient(0.85turn,#ffe4f1,#dbe8ff, #c5f1ff,#feedff);
+
 }
 
 a {
@@ -34,27 +37,20 @@ a {
     height: auto;
     width: auto;
     padding: 20px 35px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px #e6af26;
-}
-
-.theme-toggler::before {
-    content: '';
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background-color: #FFE8AF;
-    z-index: -1;
-    box-shadow: 20px 15px 15px #8b9c8b;
+    border-radius: 30px;
+    box-shadow: 0px 10px 25px 10px #8198a8;
+    
 }
 
 .display-screen {
     height: 120px;
     width: 450px;
     margin: 5px 0;
+/*
+    height: 130px;
+    width: 100%;
+    margin: 15px 0;
+*/
     margin-bottom: 20px;
     padding: 0 20px;
     display: flex;
@@ -65,6 +61,11 @@ a {
     overflow-y: hidden;
     background-color: #f8fafb;
     border-radius: 27px;
+
+/*
+    background-color: #e8f7ff;
+    border-radius: 40px;
+*/
     font-weight: bold;
     box-sizing: border-box;
 }
@@ -78,9 +79,9 @@ button {
     height: 100px;
     width: 100px;
     border: 0;
-    border-radius: 20px;
+    border-radius: 50px;
     margin: 5px;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     transition: all 200ms ease;
 }
@@ -95,15 +96,18 @@ button:hover {
     border: 0;
     border-radius: 20px;
     margin: 5px;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     transition: all 200ms ease;
     background-color: #FFF5DD;
 
+/*
+    background-color: #fae5fa;
+*/
 }
 
 .button0:hover {
-    height: 80px;
+    height: 100px;
     width: 210px;
     border: 0;
     border-radius: 20px;
@@ -112,6 +116,10 @@ button:hover {
     cursor: pointer;
     transition: all 200ms ease;
     background-color: #fff0ad;
+/*
+    background-color: #ffdaff;
+    color: rgb(255, 255, 255);
+*/
     font-size: xx-large;
 
 }
@@ -134,15 +142,27 @@ button#equal {
 
 .calculator {
     background-color: rgb(0, 0, 0);
+/*
+    background-color: #d3d3ff;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+*/
 }
+
+/*
+.calculator button.btn-equal {
+    background-color: #fae5fa;
+    color: #000;
+}
+*/
 
 /* dark theme */
 .calculator.dark {
-    background: linear-gradient(#789177, #ADC091, #dbe6c0);
+    background: linear-gradient(#76cdff, #57cdff,#ffffe4);
 }
 
 .calculator.dark button.btn-equal {
-    background-color: #223323;
+    background-color: #d3d3ff;
     color: #ffffff;
 }
 
@@ -154,17 +174,29 @@ button#equal {
 
 .calculator.dark button.btn-number:hover {
     background-color: #fff0ad;
+/*
+    background-color: #fae5fa;
+    color: #000000;
+    font-size: 30px;
+*/
+}
+
+/*
+.calculator.dark button.btn-number:hover {
+    background-color: #ffdaff;
+    color: rgb(255, 255, 255);
     font-size: xx-large;
 }
+*/
 
 /* button operator */
 .calculator.dark button.btn-operator {
-    background-color: #e9c686;
+    background-color: #d3d3ff;
     color: #000000;
 }
 
 .calculator.dark button.btn-operator:hover {
-    background-color: #d8ac5a;
+    background-color: #acacff;
     color: rgb(255, 255, 255);
     font-size: xx-large;
 }

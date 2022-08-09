@@ -1,3 +1,5 @@
+// import { useEffect, useInsertionEffect, useRef, useState } from "react";
+
 import "./style.css";
 import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
@@ -12,6 +14,114 @@ function App() {
   useEffect(() => {
     setInput(curState);
   }, [curState]);
+
+/*
+  const [oldInput, setOldInput] = useState("");
+  const [result, setResult] = useState(0);
+  const [input, setInput] = useState(0);
+  const [sign, setSign] = useState(""); // operation + - * /
+  const [preSign, setPreSign] = useState(""); // store for check what operator is executed when clicked =
+
+  // handle the input value that show on the screen
+  const clickHandler = (e) => {
+    // e.preventDefault();
+    const btnType = e.target.className;
+    const value = e.target.value;
+
+    if (btnType === "btn-operator") {
+      console.log(btnType, e.target.value);
+      Operation(e.target.value);
+      // setInput(e.target.value);
+    } else if (btnType === "btn-number" || btnType === "button0") {
+      console.log(btnType, e.target.value);
+      if (input === "0" || isNaN(Number(input))) {
+        // if the screen value is 0 or non-number
+        setInput(e.target.value);
+        // console.log(e.target.value)
+      } else {
+        setInput(input.concat(e.target.value)); // add number to the screen value
+        // console.log(input)
+      }
+    }
+  };
+
+
+
+  const [addition, setAddition] = useState(false);
+  const [subtraction, setSubtraction] = useState(false);
+  const [multiplication, setMultiplication] = useState(false);
+  const [division, setDivision] = useState(false);
+  const [choose, setChoose] = useState("");
+
+
+  function Operation(symbol) {
+    if(symbol == "*" && oldInput != ""){
+      setInput(Number(result));
+      setMultiplication(true);
+      // setInput("");
+      console.log(input)
+    }
+
+    if (choose == "") {
+      setChoose(symbol);
+    } else if (choose != symbol) {
+      setChoose(symbol);
+    }
+    if (symbol == "+" && addition) {
+      setResult(Number(result) + Number(input));
+      setInput("");
+    } else if (symbol == "-" && subtraction) {
+      setResult(Number(result) - Number(input));
+      setInput("");
+    } else if (symbol == "*" && multiplication) {
+      setResult(Number(input) * Number(result));
+      setInput("");
+    } else if (symbol == "/" && division) {
+      setResult(Number(input) / Number(result));
+      setInput("");
+    }
+
+    if (symbol == "=") {
+      if (addition) {
+        setResult(Number(result) + Number(input));
+        setAddition(false);
+      } else if (subtraction) {
+        setResult(Number(result) - Number(input));
+        setSubtraction(false);
+      } else if (multiplication) {
+        setResult(Number(input) * Number(result));
+        setMultiplication(false);
+        console.log(result)
+        setOldInput(result);
+      } else if (division) {
+        setResult(Number(result) / Number(input));
+        setDivision(false);
+      }
+      setInput("");
+    }
+
+    if (symbol == "+" && !addition) {
+      setAddition(true);
+      setResult(Number(input));
+      setInput("");
+    } else if (symbol == "-" && !subtraction) {
+      setSubtraction(true);
+      setResult(Number(input));
+      setInput("");
+    } else if (symbol == "*" && !multiplication) {
+      setMultiplication(true);
+      setResult(Number(input));
+      setInput("");
+    } else if (symbol == "/" && !division) {
+      setDivision(true);
+      setResult(Number(input));
+      setInput("");
+    }
+
+
+  }
+  // let ref = useRef(null);
+*/
 
   useEffect(() => {
     setInput("0");
@@ -113,6 +223,17 @@ function App() {
     setInput("0");
     setOperator(null);
     setTotal(false);
+    
+/*
+    setInput("0");
+    setResult("0");
+    setOldInput("0");
+    setAddition(false);
+    setSubtraction(false);
+    setMultiplication(false);
+    setDivision(false);
+    setSign("");
+*/
   };
 
   return (
@@ -135,6 +256,14 @@ function App() {
               />
             )}
           </h1>
+
+/*
+          <h3 id="display">{input || result}</h3>
+          {/* <h1 id="display">{sign ? result : input}</h1> */}
+          {console.log("input", input)}
+          {console.log("result", result)}
+          */
+          
         </div>
         {/* Buttons Box */}
         <div className="buttons">
@@ -215,7 +344,7 @@ function App() {
                 <td>
                   <button
                     className="btn-operator"
-                    id="minus"
+                    id="minus2"
                     value="-"
                     onClick={operatorClickHandler}
                   >
@@ -343,9 +472,7 @@ function App() {
           </table>
         </div>
       </div>
-      <div>
-        <h1>Teammate: Bruce, Ari, Double</h1>
-      </div>
+      <footer>Teammate: Bruce, Ari, Double</footer>
     </div>
   );
 }
